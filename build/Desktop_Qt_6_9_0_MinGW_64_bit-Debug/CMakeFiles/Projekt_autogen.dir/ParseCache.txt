@@ -373,9 +373,9 @@ C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/mainwindow.
  mdp:C:/Qt/Tools/mingw1310_64/x86_64-w64-mingw32/include/wchar.h
  mdp:C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/build/Desktop_Qt_6_9_0_MinGW_64_bit-Debug/Projekt_autogen/moc_predefs.h
  mdp:C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/mainwindow.h
-C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/main.cpp
 C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/mainwindow.cpp
  uic:./ui_mainwindow.h
+C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/main.cpp
 C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/zadanie.h
 C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/zadanie.cpp
 C:/Users/marti/OneDrive/Pulpit/Projekt_Planer_JiPP/Planer_1_2/Planer/oknodailogowe_dodajzadanie.h
