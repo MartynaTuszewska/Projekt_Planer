@@ -18,13 +18,13 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_Dodaj_clicked();
-    void wczytajZadaniaZPliku(const QString &sciezka);
-    void zapiszWszystkieZadaniaDoPliku(const QString &sciezka);
+    void on_Add_clicked();
+    void loadFilesFromFile(const QString &sciezka);
+    void saveAllTasksToFile(const QString &sciezka);
 
 
-    void on_Edytuj_clicked();
-    void on_Usun_clicked();
+    void on_Edit_clicked();
+    void on_Delete_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    wczytajZadaniaZPliku("zadania.txt");
+    loadFilesFromFile("zadania.txt");
 
     QStringList dni = {"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"};
     ui->tableWidget->setColumnCount(7);
@@ -23,41 +23,41 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_Dodaj_clicked()
+void MainWindow::on_Add_clicked()
 {
-    OknoDailogowe_DodajZadanie dialog(this);
+    DialogWindow_AddTask dialog(this);
     if (dialog.exec() == QDialog::Accepted) {
-        Zadanie noweZadanie = dialog.getZadanie();
+        Task newTask = dialog.getTask();
 
-        noweZadanie.zapiszDoPliku("zadania.txt");
+        newTask.saveToFile("zadania.txt");
 
-        QString tekst =
-            "Tytuł: " + noweZadanie.getTytul() + "\n" +
-            "Priorytet: " + QString::number(noweZadanie.getPriorytet()) + "\n" +
-            "Notatka: " + noweZadanie.getNotatka();
-        QString dzien = noweZadanie.getDzien();
+        QString text =
+            "Tytuł: " + newTask.getTitle() + "\n" +
+            "Priorytet: " + QString::number(newTask.getPriority()) + "\n" +
+            "Notatka: " + newTask.getNote();
+        QString dzien = newTask.getDay();
 
         QStringList dni = {"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"};
-        int kolumna = dni.indexOf(dzien);
-        if (kolumna == -1) return;
+        int column = dni.indexOf(dzien);
+        if (column == -1) return;
 
         int wolnyWiersz = -1;
         for (int r = 0; r < ui->tableWidget->rowCount(); ++r) {
-            if (ui->tableWidget->item(r, kolumna) == nullptr) {
+            if (ui->tableWidget->item(r, column) == nullptr) {
                 wolnyWiersz = r;
                 break;
             }
         }
 
         if (wolnyWiersz != -1) {
-            QTableWidgetItem *item = new QTableWidgetItem(tekst);
+            QTableWidgetItem *item = new QTableWidgetItem(text);
             item->setTextAlignment(Qt::AlignTop | Qt::AlignLeft);
-            ui->tableWidget->setItem(wolnyWiersz, kolumna, item);
+            ui->tableWidget->setItem(wolnyWiersz, column, item);
         }
     }
 }
 
-void MainWindow::wczytajZadaniaZPliku(const QString &sciezka)
+void MainWindow::loadFilesFromFile(const QString &sciezka)
 {
     QFile plik(sciezka);
     if (!plik.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -76,36 +76,36 @@ void MainWindow::wczytajZadaniaZPliku(const QString &sciezka)
         int priorytet = dane[2].toInt();
         QString notatka = dane[3];
 
-        Zadanie zadanie(tytul, dzien, priorytet, notatka);
+        Task zadanie(tytul, dzien, priorytet, notatka);
 
-        QString tekst =
-            "Tytuł: " + zadanie.getTytul() + "\n" +
-            "Priorytet: " + QString::number(zadanie.getPriorytet()) + "\n" +
-            "Notatka: " + zadanie.getNotatka();
+        QString text =
+            "Tytuł: " + zadanie.getTitle() + "\n" +
+            "Priorytet: " + QString::number(zadanie.getPriority()) + "\n" +
+            "Notatka: " + zadanie.getNote();
 
         QStringList dni = {"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"};
-        int kolumna = dni.indexOf(zadanie.getDzien());
-        if (kolumna == -1) continue;
+        int column = dni.indexOf(zadanie.getDay());
+        if (column == -1) continue;
 
         int wolnyWiersz = -1;
         for (int r = 0; r < ui->tableWidget->rowCount(); ++r) {
-            if (ui->tableWidget->item(r, kolumna) == nullptr) {
+            if (ui->tableWidget->item(r, column) == nullptr) {
                 wolnyWiersz = r;
                 break;
             }
         }
 
         if (wolnyWiersz != -1) {
-            QTableWidgetItem *item = new QTableWidgetItem(tekst);
+            QTableWidgetItem *item = new QTableWidgetItem(text);
             item->setTextAlignment(Qt::AlignTop | Qt::AlignLeft);
-            ui->tableWidget->setItem(wolnyWiersz, kolumna, item);
+            ui->tableWidget->setItem(wolnyWiersz, column, item);
         }
     }
 
     plik.close();
 }
 
-void MainWindow::zapiszWszystkieZadaniaDoPliku(const QString &sciezka)
+void MainWindow::saveAllTasksToFile(const QString &sciezka)
 {
     QFile plik(sciezka);
     if (!plik.open(QIODevice::WriteOnly | QIODevice::Text))
@@ -120,8 +120,8 @@ void MainWindow::zapiszWszystkieZadaniaDoPliku(const QString &sciezka)
             QTableWidgetItem *item = ui->tableWidget->item(row, col);
             if (!item) continue;
 
-            QString tekst = item->text();
-            QStringList linie = tekst.split("\n");
+            QString text = item->text();
+            QStringList linie = text.split("\n");
 
             QString tytul = linie[0].mid(QString("Tytuł: ").length());
             int priorytet = linie[1].mid(QString("Priorytet: ").length()).toInt();
@@ -136,7 +136,7 @@ void MainWindow::zapiszWszystkieZadaniaDoPliku(const QString &sciezka)
 }
 
 
-void MainWindow::on_Edytuj_clicked()
+void MainWindow::on_Edit_clicked()
 {
     QTableWidgetItem *item = ui->tableWidget->currentItem();
     if (!item)
@@ -145,8 +145,8 @@ void MainWindow::on_Edytuj_clicked()
     int row = ui->tableWidget->row(item);
     int col = ui->tableWidget->column(item);
 
-    QString tekst = item->text();
-    QStringList linie = tekst.split("\n");
+    QString text = item->text();
+    QStringList linie = text.split("\n");
 
     if (linie.size() != 3) return;
 
@@ -156,43 +156,43 @@ void MainWindow::on_Edytuj_clicked()
     QStringList dni = {"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"};
     QString dzien = dni[col];
 
-    Zadanie staryZadanie(tytul, dzien, priorytet, notatka);
-    OknoDailogowe_DodajZadanie dialog(this);
-    dialog.ustawZadanie(staryZadanie);
+    Task staryZadanie(tytul, dzien, priorytet, notatka);
+    DialogWindow_AddTask dialog(this);
+    dialog.setTask(staryZadanie);
 
     if (dialog.exec() == QDialog::Accepted) {
-        Zadanie nowyZadanie = dialog.getZadanie();
+        Task nowyZadanie = dialog.getTask();
 
-        QString nowyTekst =
-            "Tytuł: " + nowyZadanie.getTytul() + "\n" +
-            "Priorytet: " + QString::number(nowyZadanie.getPriorytet()) + "\n" +
-            "Notatka: " + nowyZadanie.getNotatka();
+        QString nowytext =
+            "Tytuł: " + nowyZadanie.getTitle() + "\n" +
+            "Priorytet: " + QString::number(nowyZadanie.getPriority()) + "\n" +
+            "Notatka: " + nowyZadanie.getNote();
 
         ui->tableWidget->setItem(row, col, nullptr);
 
-        int nowaKolumna = dni.indexOf(nowyZadanie.getDzien());
+        int nowacolumn = dni.indexOf(nowyZadanie.getDay());
 
-        if (nowaKolumna == -1) return;
+        if (nowacolumn == -1) return;
 
         int nowyWiersz = -1;
         for (int r = 0; r < ui->tableWidget->rowCount(); ++r) {
-            if (ui->tableWidget->item(r, nowaKolumna) == nullptr) {
+            if (ui->tableWidget->item(r, nowacolumn) == nullptr) {
                 nowyWiersz = r;
                 break;
             }
         }
 
         if (nowyWiersz != -1) {
-            QTableWidgetItem *nowyItem = new QTableWidgetItem(nowyTekst);
+            QTableWidgetItem *nowyItem = new QTableWidgetItem(nowytext);
             nowyItem->setTextAlignment(Qt::AlignTop | Qt::AlignLeft);
-            ui->tableWidget->setItem(nowyWiersz, nowaKolumna, nowyItem);
+            ui->tableWidget->setItem(nowyWiersz, nowacolumn, nowyItem);
         }
 
-        zapiszWszystkieZadaniaDoPliku("zadania.txt");
+        saveAllTasksToFile("zadania.txt");
     }
 }
 
-void MainWindow::on_Usun_clicked()
+void MainWindow::on_Delete_clicked()
 {
     QTableWidgetItem *item = ui->tableWidget->currentItem();
     if (!item)
@@ -203,6 +203,6 @@ void MainWindow::on_Usun_clicked()
 
     ui->tableWidget->setItem(row, col, nullptr);
 
-    zapiszWszystkieZadaniaDoPliku("zadania.txt");
+    saveAllTasksToFile("zadania.txt");
 }
 

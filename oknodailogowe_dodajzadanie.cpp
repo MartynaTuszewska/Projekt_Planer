@@ -1,34 +1,34 @@
 #include "oknodailogowe_dodajzadanie.h"
 #include "ui_oknodailogowe_dodajzadanie.h"
 
-OknoDailogowe_DodajZadanie::OknoDailogowe_DodajZadanie(QWidget *parent)
+DialogWindow_AddTask::DialogWindow_AddTask(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::OknoDailogowe_DodajZadanie)
+    , ui(new Ui::DialogWindow_AddTask)
 {
     ui->setupUi(this);
-    ui->dzienDialog->addItems({"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"});
+    ui->dayDialog->addItems({"Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"});
 }
 
-OknoDailogowe_DodajZadanie::~OknoDailogowe_DodajZadanie()
+DialogWindow_AddTask::~DialogWindow_AddTask()
 {
     delete ui;
 }
 
-Zadanie OknoDailogowe_DodajZadanie::getZadanie() const
+Task DialogWindow_AddTask::getTask() const
 {
-    return Zadanie(
-        ui->tytulDialog->text(),
-        ui->dzienDialog->currentText(),
-        ui->priorytetDialog->value(),
-        ui->notatkaDialog->toPlainText()
+    return Task(
+        ui->titleDialog->text(),
+        ui->dayDialog->currentText(),
+        ui->priorityDialog->value(),
+        ui->noteDialog->toPlainText()
         );
 }
 
-void OknoDailogowe_DodajZadanie::ustawZadanie(const Zadanie &zadanie)
+void DialogWindow_AddTask::setTask(const Task &zadanie)
 {
-    ui->tytulDialog->setText(zadanie.getTytul());
-    ui->dzienDialog->setCurrentText(zadanie.getDzien());
-    ui->priorytetDialog->setValue(zadanie.getPriorytet());
-    ui->notatkaDialog->setPlainText(zadanie.getNotatka());
+    ui->titleDialog->setText(zadanie.getTitle());
+    ui->dayDialog->setCurrentText(zadanie.getDay());
+    ui->priorityDialog->setValue(zadanie.getPriority());
+    ui->noteDialog->setPlainText(zadanie.getNote());
 }
 

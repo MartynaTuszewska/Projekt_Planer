@@ -3,29 +3,29 @@
 
 #include <QString>
 
-class Zadanie
+class Task
 {
 public:
-    Zadanie();
-    Zadanie(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka);
+    Task();
+    Task(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka);
 
-    bool zapiszDoPliku(const QString &sciezka) const;
+    bool saveToFile(const QString &sciezka) const;
 
-    QString getTytul() const;
-    QString getDzien() const;
-    int getPriorytet() const;
-    QString getNotatka() const;
+    QString getTitle() const;
+    QString getDay() const;
+    int getPriority() const;
+    QString getNote() const;
 
-    void setTytul(const QString &tytul);
-    void setDzien(const QString &dzien);
-    void setPriorytet(int priorytet);
-    void setNotatka(const QString &notatka);
+    void setTitle(const QString &title);
+    void setDay(const QString &day);
+    void setPriority(int priority);
+    void setNote(const QString &note);
 
 private:
-    QString tytul;
-    QString dzien;
-    int priorytet;
-    QString notatka;
+    QString title;
+    QString day;
+    int priority;
+    QString note;
 };
 
 #endif

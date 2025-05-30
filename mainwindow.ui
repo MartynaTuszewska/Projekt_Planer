@@ -58,7 +58,7 @@
       <property name="title">
        <string>GroupBox</string>
       </property>
-      <widget class="QPushButton" name="U">
+      <widget class="QPushButton" name="Delete">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -71,7 +71,7 @@
         <string>Usuń</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="Edytuj">
+      <widget class="QPushButton" name="Edit">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -84,7 +84,7 @@
         <string>Edytuj</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="Dodaj">
+      <widget class="QPushButton" name="Add">
        <property name="geometry">
         <rect>
          <x>0</x>

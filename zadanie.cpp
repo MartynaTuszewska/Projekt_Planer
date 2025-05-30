@@ -2,19 +2,19 @@
 #include <QFile>
 #include <QTextStream>
 
-Zadanie::Zadanie()
-    : priorytet(0)
+Task::Task()
+    : priority(0)
 {}
 
-Zadanie::Zadanie(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka)
+Task::Task(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka)
 {
-    this->tytul = tytul;
-    this->dzien = dzien;
-    this->priorytet = priorytet;
-    this->notatka = notatka;
+    this->title = tytul;
+    this->day = dzien;
+    this->priority = priorytet;
+    this->note = notatka;
 }
 
-bool Zadanie::zapiszDoPliku(const QString &sciezka) const
+bool Task::saveToFile(const QString &sciezka) const
 {
     QFile plik(sciezka);
     if (!plik.open(QIODevice::Append | QIODevice::Text))
@@ -22,49 +22,49 @@ bool Zadanie::zapiszDoPliku(const QString &sciezka) const
 
     QTextStream out(&plik);
 
-    out << this->tytul << "|" << this->dzien << "|" << this->priorytet << "|" << this->notatka << "\n";
+    out << this->title << "|" << this->day << "|" << this->priority << "|" << this->note << "\n";
 
 
     plik.close();
     return true;
 }
 
-QString Zadanie::getTytul() const
+QString Task::getTitle() const
 {
-    return this->tytul;
+    return this->title;
 }
 
-QString Zadanie::getDzien() const
+QString Task::getDay() const
 {
-    return this->dzien;
+    return this->day;
 }
 
-int Zadanie::getPriorytet() const
+int Task::getPriority() const
 {
-    return this->priorytet;
+    return this->priority;
 }
 
-QString Zadanie::getNotatka() const
+QString Task::getNote() const
 {
-    return this->notatka;
+    return this->note;
 }
 
-void Zadanie::setTytul(const QString &tytul)
+void Task::setTitle(const QString &tytul)
 {
-    this->tytul = tytul;
+    this->title = tytul;
 }
 
-void Zadanie::setDzien(const QString &dzien)
+void Task::setDay(const QString &dzien)
 {
-    this->dzien = dzien;
+    this->day = dzien;
 }
 
-void Zadanie::setPriorytet(int priorytet)
+void Task::setPriority(int priorytet)
 {
-    this->priorytet = priorytet;
+    this->priority = priorytet;
 }
 
-void Zadanie::setNotatka(const QString &notatka)
+void Task::setNote(const QString &notatka)
 {
-    this->notatka = notatka;
+    this->note = notatka;
 }

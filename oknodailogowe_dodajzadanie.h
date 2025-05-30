@@ -5,23 +5,23 @@
 #include "zadanie.h"
 
 namespace Ui {
-class OknoDailogowe_DodajZadanie;
+class DialogWindow_AddTask;
 }
 
-class OknoDailogowe_DodajZadanie : public QDialog
+class DialogWindow_AddTask : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit OknoDailogowe_DodajZadanie(QWidget *parent = nullptr);
-    ~OknoDailogowe_DodajZadanie();
+    explicit DialogWindow_AddTask(QWidget *parent = nullptr);
+    ~DialogWindow_AddTask();
 
-    Zadanie getZadanie() const;
-    void ustawZadanie(const Zadanie &zadanie);
+    Task getTask() const;
+    void setTask(const Task &task);
 
 
 private:
-    Ui::OknoDailogowe_DodajZadanie *ui;
+    Ui::DialogWindow_AddTask *ui;
 };
 
 #endif
