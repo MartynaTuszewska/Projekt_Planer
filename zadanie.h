@@ -7,9 +7,9 @@ class Task
 {
 public:
     Task();
-    Task(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka);
+    Task(const QString &title, const QString &day, int priority, const QString &note);
 
-    bool saveToFile(const QString &sciezka) const;
+    bool saveToFile(const QString &path) const;
 
     QString getTitle() const;
     QString getDay() const;

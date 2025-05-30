@@ -6,17 +6,17 @@ Task::Task()
     : priority(0)
 {}
 
-Task::Task(const QString &tytul, const QString &dzien, int priorytet, const QString &notatka)
+Task::Task(const QString &title, const QString &day, int priority, const QString &note)
 {
-    this->title = tytul;
-    this->day = dzien;
-    this->priority = priorytet;
-    this->note = notatka;
+    this->title = title;
+    this->day = day;
+    this->priority = priority;
+    this->note = note;
 }
 
-bool Task::saveToFile(const QString &sciezka) const
+bool Task::saveToFile(const QString &path) const
 {
-    QFile plik(sciezka);
+    QFile plik(path);
     if (!plik.open(QIODevice::Append | QIODevice::Text))
         return false;
 
@@ -49,22 +49,22 @@ QString Task::getNote() const
     return this->note;
 }
 
-void Task::setTitle(const QString &tytul)
+void Task::setTitle(const QString &title)
 {
-    this->title = tytul;
+    this->title = title;
 }
 
-void Task::setDay(const QString &dzien)
+void Task::setDay(const QString &day)
 {
-    this->day = dzien;
+    this->day = day;
 }
 
-void Task::setPriority(int priorytet)
+void Task::setPriority(int priority)
 {
-    this->priority = priorytet;
+    this->priority = priority;
 }
 
-void Task::setNote(const QString &notatka)
+void Task::setNote(const QString &note)
 {
-    this->note = notatka;
+    this->note = note;
 }

@@ -19,8 +19,8 @@ public:
 
 private slots:
     void on_Add_clicked();
-    void loadFilesFromFile(const QString &sciezka);
-    void saveAllTasksToFile(const QString &sciezka);
+    void loadFilesFromFile(const QString &path);
+    void saveAllTasksToFile(const QString &path);
 
 
     void on_Edit_clicked();
